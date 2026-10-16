@@ -13,6 +13,7 @@ dependencies = [
     "torchvision>=0.17.0",
     "matplotlib>=3.8.0",
     "numpy>=1.26.0",
+    "pillow>=10.3.0,<12.0.0",
 ]
 
 [tool.hatch.build.targets.wheel]

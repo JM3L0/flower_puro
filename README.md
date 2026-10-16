@@ -1,5 +1,7 @@
 # 🌸 Tutorial Didático de Aprendizado Federado (Flower + PyTorch)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JM3L0/flower_puro/blob/main/executar_flower_puro.ipynb)
+
 Este repositório é um guia prático, canônico e autocontido para estudar, executar e estender **Aprendizado Federado (*Federated Learning - FL*)** utilizando a arquitetura moderna do framework oficial [Flower 1.x](https://flower.ai/) em conjunto com o [PyTorch](https://pytorch.org/) sobre o dataset **CIFAR-10**.
 
 ---
@@ -159,19 +161,20 @@ O notebook [`executar_flower_puro.ipynb`](file:///c:/Users/jsous/Desktop/flower_
 ### Passo a Passo de Execução no Colab
 
 ```text
-[1. Checagem GPU T4] ──> [2. Git Clone/Pull] ──> [3. Formulário & Treino] ──> [4. Gráficos & Tabela] ──> [5. Download .ZIP]
+[1. Checagem GPU T4] ──> [2. Instalação Flower] ──> [3. Git Clone/Pull] ──> [4. Formulário & Treino] ──> [5. Gráficos & Tabela] ──> [6. Download .ZIP]
 ```
 
 1. **Célula 1 - Verificação de GPU**: Executa `!nvidia-smi` para confirmar a alocação de uma GPU NVIDIA (como a T4 gratuita).
-2. **Célula 2 - Sincronização com o GitHub e Instalação**:
+2. **Célula 2 - Instalação Dedicada do Flower**: Instala o framework Flower (`flwr[simulation]`), `flwr-datasets[vision]`, `torch` e dependências científicas diretamente na máquina do Colab.
+3. **Célula 3 - Sincronização com o GitHub**:
    * Clona o repositório `JM3L0/flower_puro` na VM do Colab (ou executa `git pull` se a pasta já existir).
-   * Instala as dependências de `requirements.txt` e o pacote em modo editável (`pip install -e .`).
-3. **Célula 3 - Formulário Interativo & Simulação**:
+   * Instala o pacote em modo editável (`pip install -e .`) para importar os módulos locais.
+4. **Célula 4 - Formulário Interativo & Simulação**:
    * Permite configurar as rodadas, clientes, taxa de aprendizado e heterogeneidade Dirichlet via formulário GUI (`#@title`, `#@param`).
    * **Executa diretamente os módulos do repositório**: Invoca `simulacao_direta.executar_simulacao()`, que utiliza os arquivos do pacote [`flower_puro`](file:///c:/Users/jsous/Desktop/flower_puro/flower_puro).
-   * **Mecanismo de Auto-Recuperação Defensivo**: Se a Célula 2 for pulada, a Célula 3 clona o repositório e instala as dependências automaticamente antes de rodar.
-4. **Célula 4 - Visualização Gráfica e Tabela**: Exibe em tela a imagem `curvas_convergencia.png` e renderiza a tabela Markdown `TABELA_RESULTADOS.md` com as métricas consolidadas de cada rodada.
-5. **Célula 5 - Download Nativo dos Resultados**: Compacta o modelo salvo (`modelo_federado.pt`), métricas JSON e gráficos em `resultados_flower_puro.zip` e dispara o download direto para o navegador.
+   * **Mecanismo de Auto-Recuperação Defensivo**: Se as células anteriores forem puladas, a célula detecta e instala o necessário automaticamente antes de rodar.
+5. **Célula 5 - Visualização Gráfica e Tabela**: Exibe em tela a imagem `curvas_convergencia.png` e renderiza a tabela Markdown `TABELA_RESULTADOS.md` com as métricas consolidadas de cada rodada.
+6. **Célula 6 - Download Nativo dos Resultados**: Compacta o modelo salvo (`modelo_federado.pt`), métricas JSON e gráficos em `resultados_flower_puro.zip` e dispara o download direto para o navegador.
 
 > [!TIP]
 > **Como testar alterações feitas no computador no Colab:**
