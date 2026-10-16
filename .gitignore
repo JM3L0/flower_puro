@@ -1,0 +1,29 @@
+# Ambientes virtuais
+.venv/
+venv/
+ENV/
+env/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Dados e Modelos Baixados
+data/
+*.pt
+*.pth
+checkpoints/
+
+# Resultados locais
+resultados/
+graficos/
+*.png
+*.zip
+
+# IDEs e Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

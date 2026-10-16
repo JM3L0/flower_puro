@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "flower_puro"
+version = "1.0.0"
+description = "Tutorial Canônico e Didático de Aprendizado Federado com Flower e PyTorch"
+dependencies = [
+    "flwr[simulation]>=1.15.0",
+    "flwr-datasets[vision]>=0.5.0",
+    "torch>=2.2.0",
+    "torchvision>=0.17.0",
+    "matplotlib>=3.8.0",
+    "numpy>=1.26.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["flower_puro"]
+
+[tool.flwr.app]
+publisher = "flwr"
+
+[tool.flwr.app.components]
+serverapp = "flower_puro.server_app:app"
+clientapp = "flower_puro.client_app:app"
+
+[tool.flwr.app.config]
+num-server-rounds = 10
+fraction-fit = 1.0
+fraction-evaluate = 1.0
+min-fit-clients = 10
+min-evaluate-clients = 10
+min-available-clients = 10
+local-epochs = 2
+learning-rate = 0.01
+batch-size = 64
+dirichlet-alpha = 100.0
+
+[tool.flwr.federations.local-simulation]
+options.num-supernodes = 10
