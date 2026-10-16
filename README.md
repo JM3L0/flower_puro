@@ -154,25 +154,30 @@ O Flower é agnóstico a frameworks de deep learning. Para alcançar essa intero
 
 ## ☁️ Como o Projeto Roda no Google Colab
 
-O notebook [`executar_flower_puro.ipynb`](file:///c:/Users/jsous/Desktop/flower_puro/executar_flower_puro.ipynb) foi construído para proporcionar uma experiência **completamente autocontida** e à prova de falhas:
+O notebook [`executar_flower_puro.ipynb`](file:///c:/Users/jsous/Desktop/flower_puro/executar_flower_puro.ipynb) conecta-se diretamente ao repositório GitHub [**JM3L0/flower_puro**](https://github.com/JM3L0/flower_puro), garantindo que o Colab sempre execute o código mais recente do projeto:
 
 ### Passo a Passo de Execução no Colab
 
 ```text
-[1. Checagem GPU T4] ──> [2. Instalação Pip] ──> [3. Formulário & Treino] ──> [4. Gráficos] ──> [5. Download .ZIP]
+[1. Checagem GPU T4] ──> [2. Git Clone/Pull] ──> [3. Formulário & Treino] ──> [4. Gráficos & Tabela] ──> [5. Download .ZIP]
 ```
 
 1. **Célula 1 - Verificação de GPU**: Executa `!nvidia-smi` para confirmar a alocação de uma GPU NVIDIA (como a T4 gratuita).
-2. **Célula 2 - Instalação de Dependências**: Instala `flwr`, `flwr-datasets[vision]`, `datasets`, `torch`, `torchvision` e `matplotlib`.
+2. **Célula 2 - Sincronização com o GitHub e Instalação**:
+   * Clona o repositório `JM3L0/flower_puro` na VM do Colab (ou executa `git pull` se a pasta já existir).
+   * Instala as dependências de `requirements.txt` e o pacote em modo editável (`pip install -e .`).
 3. **Célula 3 - Formulário Interativo & Simulação**:
-   * Utiliza formulários nativos do Google Colab (`#@title`, `#@param`) para que qualquer usuário ajuste o número de rodadas, clientes, épocas locais, learning rate e o grau de heterogeneidade Dirichlet sem precisar alterar o código Python.
-   * **Mecanismo de Auto-Recuperação Defensivo**: Se o usuário esquecer de rodar a Célula 2 e clicar diretamente no formulário da Célula 3, um bloco `try / except ImportError` detecta a ausência dos pacotes e realiza a instalação automaticamente antes de prosseguir, prevenindo o erro `ModuleNotFoundError`.
-4. **Célula 4 - Visualização Gráfica**: Renderiza em tela os gráficos de convergência da **Acurácia Global (%)** e da **Perda (*Loss*)** ao longo de todas as rodadas federadas.
-5. **Célula 5 - Download Nativo dos Resultados**: Compacta o modelo salvo (`modelo_federado.pt`) e o gráfico (`curvas_convergencia.png`) em um arquivo `resultados_flower_puro.zip` e dispara o download direto para a máquina local do usuário via `google.colab.files.download`, sem depender de montagem do Google Drive.
+   * Permite configurar as rodadas, clientes, taxa de aprendizado e heterogeneidade Dirichlet via formulário GUI (`#@title`, `#@param`).
+   * **Executa diretamente os módulos do repositório**: Invoca `simulacao_direta.executar_simulacao()`, que utiliza os arquivos do pacote [`flower_puro`](file:///c:/Users/jsous/Desktop/flower_puro/flower_puro).
+   * **Mecanismo de Auto-Recuperação Defensivo**: Se a Célula 2 for pulada, a Célula 3 clona o repositório e instala as dependências automaticamente antes de rodar.
+4. **Célula 4 - Visualização Gráfica e Tabela**: Exibe em tela a imagem `curvas_convergencia.png` e renderiza a tabela Markdown `TABELA_RESULTADOS.md` com as métricas consolidadas de cada rodada.
+5. **Célula 5 - Download Nativo dos Resultados**: Compacta o modelo salvo (`modelo_federado.pt`), métricas JSON e gráficos em `resultados_flower_puro.zip` e dispara o download direto para o navegador.
 
 > [!TIP]
-> **Modo Mais Rápido de Rodar no Colab:**
-> Abra o notebook no Colab e pressione simplesmente **`Ctrl + F9`** (menu **Ambiente de execução $\to$ Executar tudo**). O Colab executará todas as etapas em ordem e fará o download do `.zip` ao final!
+> **Como testar alterações feitas no computador no Colab:**
+> 1. Altere os arquivos `.py` no seu computador (ex: `flower_puro/task.py`);
+> 2. Envie as alterações para o GitHub com `git commit` e `git push origin main`;
+> 3. No Colab, execute novamente a Célula 2 (ou dê `Ctrl + F9`); o `git pull` baixará suas novidades automaticamente!
 
 ---
 
